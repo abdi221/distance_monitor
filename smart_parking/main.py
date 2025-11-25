@@ -166,7 +166,7 @@ async def serve_client(reader, writer):
         method = req[0]
         path = req[1]
 
-        # (drain headers)
+        # drain headers
         while True:
             h = await reader.readline()
             if not h or h == b'\r\n':
@@ -196,7 +196,7 @@ async def serve_client(reader, writer):
             await writer.awrite(body)
 
     except Exception as e:
-        # minimal error handling; don't crash server
+        # minimal error handling, so it don't crash server
         try:
             await writer.awrite('HTTP/1.0 500\r\n\r\n')
         except:
@@ -207,7 +207,7 @@ async def serve_client(reader, writer):
         except:
             pass
 
-# --- WiFi connect helper ---
+# WiFi connect
 def connect_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
@@ -215,7 +215,7 @@ def connect_wifi():
         print('Connecting to WiFi...')
         wlan.connect(WIFI_SSID, WIFI_PASS)
         # wait for connection
-        for _ in range(30):  # ~30 sec timeout
+        for _ in range(30): 
             if wlan.isconnected():
                 break
             utime.sleep(1)
@@ -227,7 +227,7 @@ def connect_wifi():
         print('WiFi connect failed')
         return None
 
-# --- Main entrypoint ---
+# main entrypoint 
 async def main():
     ip = connect_wifi()
     if ip is None:
@@ -237,7 +237,7 @@ async def main():
         print("Starting web server on port 80...")
         asyncio.create_task(asyncio.start_server(serve_client, "0.0.0.0", 80))
 
-    # start sensor sampling loop (runs even if no WiFi)
+    # start sensor sampling loop
     asyncio.create_task(sensor_task())
 
     # keep alive 
