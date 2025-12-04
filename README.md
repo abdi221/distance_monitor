@@ -16,14 +16,16 @@ You can leave the device running and expect it to stay alive without babysitting
 
 ---
 
+![picow_uss.png](smart_parking/img/picow_uss.png)
+
 ## **Hardware Used**
 
 * Raspberry Pi Pico W
 * HC-SR04 ultrasonic sensor
-* 1× LED + resistor
+* 1x LED + resistor
 * Buzzer (PWM capable)
 * Jumper wires
-* 100 nF capacitor (recommended, helps stabilize the sensor)
+* 100 nF capacitor (recommended, helps stabilize the sensor, but i didnt use it lol)
 
 The hardware setup is straightforward: trigger and echo pins go to any two GPIOs, the LED and buzzer sit on their own pins, and that’s it.
 
@@ -66,8 +68,8 @@ Works on phone or laptop as long as they’re on the same network.
 
 The buzzer and LED behave based on distance:
 
-* Safe range → quiet
-* Object too close → LED ON and buzzer pulses faster the closer it gets
+* Safe range -> quiet
+* Object too close -> LED ON and buzzer pulses faster the closer it gets
 
 The timing adapts dynamically.
 
@@ -75,7 +77,7 @@ The timing adapts dynamically.
 
 ## **How to Run It**
 
-1. Flash MicroPython onto the Pico W (if not already done).
+1. Flash MicroPython onto the Pico W, if not already done.
 2. Copy `main.py` onto the device using Thonny or your preferred tool.
 3. Update the Wi-Fi name and password at the top of the file.
 4. Reset the Pico.
@@ -91,7 +93,7 @@ If everything is wired correctly, you’ll see live readings immediately.
   Check trigger/echo wiring and confirm the sensor has stable power. The dashboard will still load even if the sensor fails.
 
 * **Frequent resets**
-  Usually means the watchdog isn’t being fed—look for any blocking code added recently.
+  Usually means the watchdog isn’t being fed, double check for any blocking code added recently.
 
 * **Inaccurate readings**
   Place a small capacitor (100 nF) across VCC and GND on the sensor. This often fixes jitter.
@@ -100,7 +102,7 @@ If everything is wired correctly, you’ll see live readings immediately.
 
 ## **Why This Project Matters**
 
-The project started as a simple distance sensor, but the focus shifted to reliability—something many small embedded systems lack. Handling real-world faults (loose cables, bad readings, unexpected software states) turned out to be more important than measuring distance itself.
+The project started as a simple distance sensor, but the focus shifted to reliability, which is something many small embedded systems lack. Handling real-world faults such as loose cables, bad readings, unexpected software states, turned out to be more important than measuring distance itself.
 
 The result is a small, Wi-Fi-enabled device that behaves predictably even when things go wrong.
 
